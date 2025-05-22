@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gigs</title>
+</head>
+<body><h1>categories</h1>
+    <h3>html</h3><br>
+<button onclick="sethtml()">html</button>
+    <h3>JavaScript</h3><br>
+    <button onclick="setjs()">JavaScript</button>
+    <h3>css</h3><br>
+    <button onclick="setCSS()">css</button>
+    <h1>list of user</h1>
+    <li id="userlist"></li>
+</body>
+<script>
+    function sethtml(){
+        const  CategorieName= "HTML"
+        contentload(CategorieName)
+    }
+    function setCSS(){
+        const  CategorieName= "CSS";
+        contentload(CategorieName)
+    }
+    function setjs(){
+        const  CategorieName= "JS";
+        contentload(CategorieName)
+    }
+    function contentload(CategorieName){
+
+       fetch(`/getcreater?CName=${CategorieName}`)
+        .then(response=>response.json())
+        .then(data=>{
+            console.log(data);
+            const userlistContainer = document.getElementById("userlist");
+            userlistContainer.innerHTML = "";
+
+
+        data.userlist.forEach(user => {
+          const li = document.createElement("li");
+          li.textContent = user;
+          li.addEventListener("click", () => {
+              window.location.href = `/createrprofile?id=${user}`;  // redirect to this page
+            });
+
+
+          userlistContainer.appendChild(li);
+        });
+        })
+        .catch(error => {
+            console.log(error);
+        
+      });
+       
+    }
+
+</script>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>.profile-pic {
+        width: 150px;           /* You can adjust the size */
+        height: 150px;          /* Height should be equal to width to keep it a perfect circle */
+        border-radius: 50%;     /* This is the key to make it circular */
+        object-fit: cover;      /* Ensures the image fits the container without distorting */
+      }
+      </style>
+</head>
+<body>
+ <div id="profile-pic-div">  <img src="profile-picture.jpg" alt="Profile Picture" class="profile-pic"> </div> 
+
+   <div id="username-div"> <p id="user-name-box"><h2></h2></p>
+    <p id="u-username-box"><h4</h4></p>
+    </div>
+    <p id="studentof-box">student of -<em></em></p>
+    <p><a href="">💬DM</a></p>
+    <p id="aboutme-box">
+        
+       
+    </p>
+    <p id="skills-showbox">
+    
+    <p><h2>work experience</h2>
+        <ul>
+            <li>none</li>
+        </ul>
+    </p>
+<form action="/logout", method="post"> 
+    <button type="submit">logout</button>
+</form>
+    <div id="menubar-div">
+        <a href="gigs.html">browse gigs</a><br>
+        <a href="">workspace</a><br>
+        <a href="">edit profile</a><br>
+    </div>
+<script>
+    fetch("/userprofile")
+    .then(response=>response.json())
+    .then(data=>{
+        const Namebox = document.getElementById("user-name-box")
+        Namebox.innerHTML=`<h2>${data.Name}</h2>`
+        const useridbox = document.getElementById("u-username-box")
+        useridbox.innerHTML= `<h4>@<em>${data.username}</em></h4>`
+        const classbox = document.getElementById("studentof-box")
+        classbox.innerHTML=`class of <em>${data.inclass} </em>`
+
+        const aboutbox = document.getElementById("aboutme-box")
+        aboutbox.innerHTML =`<h2>about me</h2>
+                             
+                              ${data.aboutme}`
+
+        const skillbox = document.getElementById("skills-showbox")
+        skillbox.innerHTML= `<h2>skills </h2>`
+         data.skill.forEach(skill => {
+            
+            skillbox.innerHTML += `
+         <li><em> ${skill}</em></li></ul> <br> `
+        });
+    })
+
+   
+</script>
+</body>
+</html>
